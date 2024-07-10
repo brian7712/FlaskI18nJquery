@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>i18n Example</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/static/js/jquery.i18n.properties.js"></script>
+</head>
+<body>
+ <label>
+    <select onchange="switchLanguage(this.value)">
+      <option value="zh">中文</option>
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+    </select>
+  </label>
+  <h1 id="greeting"></h1>
+  <h1 id="welcome"></h1>
+
+  <script>
+      // i18n.js
+        $(document).ready(function() {
+          $.i18n.properties({
+            name: 'msg',
+            path: '/static/locales/',
+            mode: 'both',
+            language: 'zh',
+            callback: function() {
+              updateText(); // 初始化頁面文本
+            }
+          });
+        })
+        function updateText() {
+          $('#greeting').text($.i18n.prop('hello'));
+          $('#welcome').text($.i18n.prop('welcome'));
+        }
+        function switchLanguage(lang) {
+          $.i18n.properties({
+            name: 'msg',
+            path: '/static/locales/',
+            mode: 'both',
+            language: lang,
+            callback: function() {
+              updateText(); // 更新頁面文本
+            }
+          });
+        }
+  </script>
+
+</body>
+</html>
